@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -27,7 +28,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -40,11 +42,17 @@ class ProjectController extends Controller
 
         $new_project->fill($data);
         $new_project->slug = Str::slug($data['name']);
-        if ($new_project->img) {
+
+        if (isset($data['img'])) {
             $new_project->img = Storage::put('uploads', $data['img']);
         }
 
         $new_project->save();
+
+        if (isset($data['technologies'])) {
+            $new_project->technologies()->sync($data['technologies']);
+        }
+
         return redirect()->route('admin.projects.index')->with('message', "Progetto $new_project->name aggiunto correttamente");
     }
 
@@ -62,7 +70,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -77,7 +87,14 @@ class ProjectController extends Controller
             Storage::delete($project->img);
             $project->img = Storage::put('uploads', $data['img']);
         }
+
         $project->update($data);
+
+        if (isset($data['technologies'])) {
+            $project->technologies()->sync($data['technologies']);
+        } else {
+            $project->technologies()->sync([]);
+        }
 
         return redirect()->route('admin.projects.show', $project)->with('message', "Progetto $project->name modificato correttamente");
     }
@@ -87,6 +104,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $project->technologies()->sync([]);
         $project_name = $project->name;
         if ($project->img) {
             Storage::delete($project->img);

@@ -15,20 +15,33 @@
         <form class="row g-3" action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="col-12>
+            <div class="col-6">
                 <label for="Titolo" class="form-label">Nome</label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="Titolo" name="name"
                     required value="{{ old('name') }}">
                 @include('shared.error', ['field' => 'name'])
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <div class="mb-3">
                     <label for="formFile" class="form-label">Immagine del progetto</label>
                     <input class="form-control" type="file" id="formFile" name="img">
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-3">
+                <label for="Tipo" class="form-label">Tipologia</label>
+                <select id="Tipo" class="form-select" name="type_id">
+                    <option selected value="{{ null }}">Seleziona una tipologia</option>
+                    @foreach ($types as $type)
+                        <option value="{{ $type->id }}" @if (old('type_id') === $type->id) selected @endif>
+                            {{ $type->title }}
+                        </option>
+                    @endforeach
+                </select>
+                @include('shared.error', ['field' => 'type_id'])
+            </div>
+
+            <div class="col-3">
                 <label for="Serie" class="form-label">Repository</label>
                 <input type="text" class="form-control @error('repository') is-invalid @enderror" id="Serie"
                     name="repository" value="{{ old('repository') }}">
@@ -49,24 +62,27 @@
                 @include('shared.error', ['field' => 'is_public'])
             </div>
 
-            <div class="col-12">
+            <div class="col-7">
                 <label for="immagine" class="form-label">Link alla Repository</label>
                 <input type="url" class="form-control @error('repo_url') is-invalid @enderror" id="immagine"
                     name="repo_url" value="{{ old('repo_url') }}">
                 @include('shared.error', ['field' => 'repo_url'])
             </div>
 
-            <div class="col-3">
-                <label for="Tipo" class="form-label">Tipo</label>
-                <select id="Tipo" class="form-select" name="type_id">
-                    <option selected value="NULL">Seleziona un tipo</option>
-                    @foreach ($types as $type)
-                        <option value="{{ $type->id }}" @if (old('type_id') === $type->id) selected @endif>
-                            {{ $type->title }}
-                        </option>
+            <div class="col-12">
+                <label class="form-label">Tecnologie Usate</label>
+                <div>
+                    @foreach ($technologies as $technology)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="check-{{ $technology->slug }}"
+                                value="{{ $technology->id }}" name="technologies[]"
+                                {{ in_array($technology->id, old('technologies', [])) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="check-{{ $technology->slug }}">
+                                {{ $technology->title }}
+                            </label>
+                        </div>
                     @endforeach
-                </select>
-                @include('shared.error', ['field' => 'type_id'])
+                </div>
             </div>
 
             <div class="col-12">

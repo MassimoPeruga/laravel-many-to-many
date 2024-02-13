@@ -29,13 +29,14 @@ class StoreProjectRequest extends FormRequest
             'is_public' => 'nullable|boolean',
             'assignment' => 'nullable',
             'img' => 'nullable|image|max:10000',
+            'technologies' => 'nullable|exists:technologies,id',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'type_id' => 'Il campo Tipo non è valido.',
+            'type_id' => 'Il campo Tipologia non è valido.',
             'name.required' => 'Il campo Nome è obbligatorio.',
             'name.unique' => 'Il campo Nome deve essere unico.',
             'name.max' => 'Il campo Nome non può superare i :max caratteri.',
@@ -44,6 +45,7 @@ class StoreProjectRequest extends FormRequest
             'is_public' => 'Il valore del campo Visibilità è errato.',
             'img.image' => 'Il campo Immagine non è valido.',
             'img.max' => "L'immagine caricata non può superare i :max KB.",
+            'technologies' => 'I valori selezionati nel campo Tecnologie Usate non sono validi.',
         ];
     }
 }

@@ -13,33 +13,46 @@
                 <div class=" {{ $project->img ? 'col-md-8' : 'col' }}">
                     <div class="card-header border-0 pb-0 d-flex">
                         <h2 class="me-auto pt-3">{{ $project['name'] }}</h2>
-                        <div class="text-end">
-                            <h5 class="card-title d-inline-block">
-                                <a href="{{ $project['repo_url'] }}" class="text-light">
-                                    {{ $project['repository'] }}
-                                </a>
-                            </h5>
-                            @if ($project['is_public'])
-                                <span class="badge text-bg-success">Pubblica</span>
-                            @else
-                                <span class="badge text-bg-secondary">Privata</span>
+                        <div class="text-end row">
+                            <div class="col-12">
+                                <h5 class="card-title d-inline-block">
+                                    <a href="{{ $project['repo_url'] }}" class="text-light">
+                                        {{ $project['repository'] }}
+                                    </a>
+                                </h5>
+                                @if ($project['is_public'])
+                                    <span class="badge text-bg-success">Pubblica</span>
+                                @else
+                                    <span class="badge text-bg-secondary">Privata</span>
+                                @endif
+                            </div>
+                            @if ($project->type)
+                                <div class="col">
+                                    Tipologia: {{ $project->type->title }}
+                                </div>
                             @endif
                         </div>
                     </div>
                     <div class="card-body pt-0">
-                        <hr>
-                        <div class="row">
-                            <div class="col-3">
-                                @if ($project->type)
-                                    Tipo: {{ $project->type->title }}
-                                @endif
+                        @if (!$project->technologies->isEmpty())
+                            <hr>
+                            <div>
+                                <h5>Tecnologie Usate:</h5>
+                                <ul class="list-group list-group-horizontal-sm">
+                                    @foreach ($project->technologies as $technology)
+                                        <li class="list-group-item">{{ $technology->title }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
-                            <div class="col-9"></div>
-                        </div>
-                        <hr>
-                        <p class="card-text pt-3 fs-5 border-0 text-start">
-                            {{ $project['assignment'] }}
-                        </p>
+                        @endif
+
+                        @if (isset($project['assignment']))
+                            <hr>
+                            <p class="card-text pt-3 fs-5 border-0 text-start">
+                                {{ $project['assignment'] }}
+                            </p>
+                        @endif
+
                         <hr>
                     </div>
                     <div class="card-footer text-light text-opacity-75 text-end  border-0">
