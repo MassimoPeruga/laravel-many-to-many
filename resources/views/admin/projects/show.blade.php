@@ -7,7 +7,8 @@
             <div class="row g-0">
                 @if ($project->img)
                     <div class="col-md-4">
-                        <img src="{{ asset('storage/' . $project->img) }}" class="img-fluid rounded-start" alt="...">
+                        <img src="{{ asset('storage/' . $project->img) }}" class="img-fluid rounded-start"
+                            alt="{{ $project['name'] }} image">
                     </div>
                 @endif
                 <div class=" {{ $project->img ? 'col-md-8' : 'col' }}">

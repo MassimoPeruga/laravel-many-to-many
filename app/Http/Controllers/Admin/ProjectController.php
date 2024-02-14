@@ -83,8 +83,10 @@ class ProjectController extends Controller
         $data = $request->validated();
 
         $project->slug = Str::of($data['name'])->slug('-');
-        if (isset($data['img']) && $data['img'] != $project->img) {
-            Storage::delete($project->img);
+        if (isset($data['img'])) {
+            if (isset($project->img)) {
+                Storage::delete($project->img);
+            }
             $project->img = Storage::put('uploads', $data['img']);
         }
 
