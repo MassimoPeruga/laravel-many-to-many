@@ -48,7 +48,7 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
-        $projects = Project::where('type_id', $type->id)->get();
+        $projects = $type->projects()->get();
         return view('admin.types.show', compact('type', 'projects'));
     }
 
@@ -77,7 +77,7 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        $type_title = $type->tile;
+        $type_title = $type->title;
 
         $type->delete();
         return redirect()->route('admin.types.index')->with('message', "Tipologia $type_title cancellata correttamente");

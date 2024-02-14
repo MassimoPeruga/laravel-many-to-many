@@ -67,7 +67,13 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white {{ Route::currentRouteName() == 'dashboard' ? 'bg-secondary' : '' }}"
                                     href="{{ route('admin.types.index') }}">
-                                    <i class="fa-solid fa-cubes"></i> Tipi
+                                    <i class="fa-solid fa-cubes"></i> Tipologie
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white {{ Route::currentRouteName() == 'dashboard' ? 'bg-secondary' : '' }}"
+                                    href="{{ route('admin.technologies.index') }}">
+                                    <i class="fa-solid fa-code"></i> Tecnologie
                                 </a>
                             </li>
                         </ul>

@@ -104,7 +104,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        $project->technologies()->sync([]);
+        $project->technologies()->detach();
         $project_name = $project->name;
         if ($project->img) {
             Storage::delete($project->img);

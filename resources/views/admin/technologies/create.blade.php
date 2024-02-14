@@ -3,16 +3,16 @@
 @section('content')
     <div class="container pt-5">
         <div class="d-flex justify-content-between">
-            <h2 class="mb-3">Aggiungi una nuova tipologia</h2>
+            <h2 class="mb-3">Aggiungi una nuva tecnologia</h2>
             <div>
                 <span>Oppure </span>
-                <a href="{{ route('admin.types.index') }}" type="button" class="btn btn-info align-self-center ms-2">
-                    Torna alla tabella delle tipologie
+                <a href="{{ route('admin.technologies.index') }}" type="button" class="btn btn-info align-self-center ms-2">
+                    Torna alla tabella delle tecnologie
                 </a>
             </div>
         </div>
         <hr>
-        <form class="row g-3" action="{{ route('admin.types.store') }}" method="POST">
+        <form class="row g-3" action="{{ route('admin.technologies.store') }}" method="POST">
             @csrf
 
             <div class="col-12>
@@ -23,7 +23,7 @@
             </div>
 
             <div class="col-12">
-                <button type="submit" class="btn btn-primary">Aggiungi alle Tipologie</button>
+                <button type="submit" class="btn btn-primary">Aggiungi alle Tecnologie</button>
             </div>
         </form>
     </div>

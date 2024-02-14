@@ -16,4 +16,4 @@ I task da svolgere sono diversi, ma alcuni di essi sono un ripasso di ciò che a
 
 ##### Bonus
 1. [x]creare il seeder per il model Technology.
-2. [o]aggiungere le operazioni CRUD per il model Technology, in modo da gestire le tecnologie utilizzate nei progetti direttamente dal pannello di amministrazione.
+2. [x]aggiungere le operazioni CRUD per il model Technology, in modo da gestire le tecnologie utilizzate nei progetti direttamente dal pannello di amministrazione.
