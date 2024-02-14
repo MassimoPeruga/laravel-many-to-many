@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="card-body pt-0">
-                        @if (!$project->technologies->isEmpty())
+                        @if (count($project->technologies))
                             <hr>
                             <div>
                                 <h5>Tecnologie Usate:</h5>
