@@ -5,11 +5,11 @@
         @include('shared.toast')
         <div class="row">
             <div class="col-12">
-                <h2>Tipi di progetti</h2>
+                <h2>Tipologie di progetti</h2>
             </div>
             <div class="col text-end">
                 <a href="{{ route('admin.types.create') }}" type="button" class="btn btn-primary mb-3">
-                    Aggiungi un nuovo tipo
+                    Aggiungi una nuova tipologia
                 </a>
             </div>
         </div>
