@@ -7,6 +7,8 @@ use App\Models\Type;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class ProjectSeeder extends Seeder
@@ -16,7 +18,10 @@ class ProjectSeeder extends Seeder
      */
     public function run(Faker $faker): void
     {
+        Schema::disableForeignKeyConstraints();
         Project::truncate();
+        DB::table('project_technology')->truncate();
+        Schema::enableForeignKeyConstraints();
         for ($i = 0; $i < 10; $i++) {
             $random_type = Type::inRandomOrder()->first();
 
